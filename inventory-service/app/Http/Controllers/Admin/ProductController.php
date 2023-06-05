@@ -52,7 +52,7 @@ class ProductController extends Controller
                 'stock_qty.numeric'     => 'Quantity must be type of Number'
             ]
         );
-            $data = Product::updateProduct($request, $id);
+        $data = Product::updateProduct($request, $id);
 
         return response([
             'success' => true,

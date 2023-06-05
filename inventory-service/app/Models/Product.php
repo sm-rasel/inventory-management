@@ -24,6 +24,7 @@ class Product extends Model
         self::$product->stock_qty           = $request->stock_qty;
         self::$product->status        = 1;
         self::$product->save();
+        return self::$product;
     }
     public static function updateProduct($request, $id)
     {
@@ -32,6 +33,7 @@ class Product extends Model
         self::$product->product_name          = $request->product_name;
         self::$product->stock_qty           = $request->stock_qty;
         self::$product->save();
+        return self::$product;
     }
 
     public static function productStatusUpdate($id)
