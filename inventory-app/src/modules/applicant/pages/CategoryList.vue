@@ -39,7 +39,7 @@
         </thead>
         <tbody>
           <tr v-for="(category,key) in categories" :key="key">
-            <td>{{ category.id }}</td>
+            <td>{{ key + 1 }}</td>
             <td>{{ category.product_id }}</td>
             <td>{{ category.c_name }}</td>
             <td>{{ category.c_status }}</td>

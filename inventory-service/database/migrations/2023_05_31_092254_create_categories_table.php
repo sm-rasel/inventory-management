@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->string('c_name');
-            $table->integer('c_qty');
-            $table->tinyInteger('c_status')->default(1)->comment('1=Active, 2=Inactive');
+            $table->string('category_name');
+            $table->tinyInteger('status')->default(1)->comment('1=Active, 2=Inactive');
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->softDeletes();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('types');
     }
 };

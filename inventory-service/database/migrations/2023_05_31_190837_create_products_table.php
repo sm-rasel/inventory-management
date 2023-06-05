@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('p_name');
-            $table->tinyInteger('p_status')->default(1)->comment('1=Active, 2=Inactive');
+            $table->unsignedBigInteger('category_id');
+            $table->string('product_name');
+            $table->integer('stock_qty');
+            $table->tinyInteger('status')->default(1)->comment('1=Active, 2=Inactive');
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->softDeletes();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('items');
     }
 };

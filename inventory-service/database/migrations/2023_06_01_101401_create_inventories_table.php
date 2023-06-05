@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('category_id');
             $table->integer('in_qty');
-            $table->integer('in_status')->default(1)->comment('1=Active, 2=Inactive');
             $table->timestamps();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

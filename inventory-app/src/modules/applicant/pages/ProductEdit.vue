@@ -57,12 +57,13 @@ import {mapState} from "vuex";
     },
     created() {
       const productId = this.$route.params.productId;
+      console.log(productId)
       if (productId){
-        this.getAllProductData(productId);
+        this.getProductData(productId);
       }
     },
     methods: {
-      getAllProductData(productId){
+      getProductData(productId){
         const productList = this.$store.state.applicants.productList
         const data = {...productList.find(item => item.id === parseInt(productId))}
         this.productData = data

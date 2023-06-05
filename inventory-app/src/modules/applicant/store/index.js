@@ -27,6 +27,14 @@ const mutations = {
   setProductList (state, products) {
     state.productList = products
   },
+  updateProductList (state, product) {
+    state.productList = state.productList.map(item => {
+      if(item.id ===  product.id) {
+        item = product
+      }
+      return item
+    })
+  },
   setCategoryList (state, categorys) {
     state.categoryList = categorys
   }

@@ -18,7 +18,7 @@ const routes = [
     component: () => import('../pages/ProductAdd.vue')
   },
   {
-    path: '/product-edit',
+    path: '/product-edit/:productId',
     name: 'product_edit',
     meta: { auth: false },
     component: () => import('../pages/ProductEdit.vue')

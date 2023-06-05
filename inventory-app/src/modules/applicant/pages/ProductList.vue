@@ -40,7 +40,7 @@
             <tr v-for="(product,key) in products" :key="key">
               <td>{{ product.id }}</td>
               <td>{{ product.p_name }}</td>
-              <td>{{ product.p_status }}</td>
+              <td>{{ product.p_status === 1 ? 'Active' : 'Inactive' }}</td>
               <td>
                 <button class="btn btn-sm btn-outline-success me-2" @click="editProduct(editId = product.id)">
                   Edit
@@ -104,18 +104,12 @@ export default {
       const params = {}
       RestApi.getData(ServiceBaseUrl, productListApi, params).then(response => {
         if (response.success) {
-          const arrayData = response.data.map(item => {
-            const p_status = item.p_status === 1 ? 'Active' : 'Inactive';
-            item.p_status = p_status;
-            return item;
-          })
-          this.$store.commit('applicants/setProductList', arrayData)
+          this.$store.commit('applicants/setProductList', response.data)
         }
       })
     },
     editProduct(editId)  {
       this.$router.push({ name: 'product_edit', params: {productId: editId} })
-      console.log('Edit Item  => ', editId);
     },
     statusUpdate(statusId) {
       Swal.fire({
@@ -130,15 +124,12 @@ export default {
         if (result.isConfirmed){
           RestApi.postData(ServiceBaseUrl, `${productStatusUpdateApi}/${statusId}`).then(response => {
             if (response.success === true) {
-              // this.$store.commit('applicants/setProductList', arrayData)
-              // Swal.fire(
-              //     'Deleted!',
-              //     'Your file has been deleted.',
-              //     'success'
-              // );
-              // setTimeout(function (){
-              //   location.reload()
-              // },500)
+              this.$store.commit('applicants/updateProductList', response.data)
+              Swal.fire(
+                  'Updated!',
+                  'Your file has been deleted.',
+                  'success'
+              );
             }
             console.log(response.data);
           });

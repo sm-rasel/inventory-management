@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PageSettings;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\CategorySection;
-use App\Models\InventorySection;
-use App\Models\ProductSection;
+use App\Models\Product;
+use App\Models\Inventory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
     public function inventoryIndex()
     {
-        $inventories = InventorySection::all();
+        $inventories = Inventory::all();
 //        return view('admin.homepage.inventory_section');
         return response([
             'success'   => true,
@@ -32,8 +32,8 @@ class InventoryController extends Controller
 
     public function inventoryAdd()
     {
-        $products   = ProductSection::where('p_status', 1)->get();
-        $categories = CategorySection::where('c_status', 1)->get();
+        $products   = Category::where('p_status', 1)->get();
+        $categories = Product::where('c_status', 1)->get();
         return view('admin.homepage.inventory_section_add', [
             'products'      => $products,
             'categories'    => $categories
@@ -42,7 +42,7 @@ class InventoryController extends Controller
 
     public function getAllCategory()
     {
-        $category = CategorySection::where('product_id', $_GET['id'])->where('c_status', 1)->get();
+        $category = Product::where('product_id', $_GET['id'])->where('c_status', 1)->get();
         return response()->json($category);
     }
 
