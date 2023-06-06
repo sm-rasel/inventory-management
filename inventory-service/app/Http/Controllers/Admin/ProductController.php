@@ -41,22 +41,22 @@ class ProductController extends Controller
     {
         $request->validate(
             [
-                'product_name'    => 'required',
-                'category_id'    => 'required',
+                'product_name'  => 'required',
+                'category_id'   => 'required',
                 'stock_qty'     => 'required|numeric'
             ],
             [
-                'product_name.required'   => 'Category Name is Required.',
-                'category_id.required'   => 'Category Name is Required.',
-                'stock_qty.required'    => 'Quantity is Required',
-                'stock_qty.numeric'     => 'Quantity must be type of Number'
+                'product_name.required'     => 'Category Name is Required.',
+                'category_id.required'      => 'Category Name is Required.',
+                'stock_qty.required'        => 'Quantity is Required',
+                'stock_qty.numeric'         => 'Quantity must be type of Number'
             ]
         );
         $data = Product::updateProduct($request, $id);
 
         return response([
-            'success' => true,
-            'data' => $data
+            'success'   => true,
+            'data'      => $data
         ]);
     }
 
@@ -64,8 +64,8 @@ class ProductController extends Controller
     {
         $data = Product::productStatusUpdate($id);
         return response([
-            'success' => true,
-            'data' => $data
+            'success'   => true,
+            'data'      => $data
         ]);
     }
 

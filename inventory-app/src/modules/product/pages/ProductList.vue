@@ -5,15 +5,16 @@
         <ul class="metismenu list-unstyled" id="side-menu">
           <li>
             <ul class="sub-menu" aria-expanded="true">
-              <div class="float-start">
-                <router-link class="btn btn-sm btn-outline-success" :to="{ name: 'product_list'}" >Add Product</router-link>
-              </div>
-              <div class="float-start ms-3">
+              <div class="float-start ">
                 <router-link class="btn btn-sm btn-outline-info" :to="{ name: 'category_list'}" >Add Category</router-link>
               </div>
-<!--              <div class="float-start ms-3">-->
-<!--                <router-link class="btn btn-sm btn-outline-primary" :to="{ name: 'inventory_list'}">See Inventory</router-link>-->
-<!--              </div>-->
+              <div class="float-start ms-3">
+                <router-link class="btn btn-sm btn-outline-success" :to="{ name: 'product_list'}" >Add Product</router-link>
+              </div>
+
+              <div class="float-start ms-3">
+                <router-link class="btn btn-sm btn-outline-primary" :to="{ name: 'inventory_list'}">See Inventory</router-link>
+              </div>
             </ul>
           </li>
         </ul>
@@ -66,9 +67,11 @@
 
 <script>
 import RestApi, { ServiceBaseUrl } from '../../../../config/api_config'
-import { productListApi} from '../api/routes'
+import {productDeleteApi, productListApi, productStatusUpdateApi} from '../api/routes'
 import { mapState } from 'vuex'
 import {categoryListApi} from "@/modules/category/api/routes";
+import Swal from "sweetalert2";
+import {toast} from "vue3-toastify";
 export default {
   components: { },
   computed: mapState({
@@ -103,9 +106,52 @@ export default {
     editProduct(productId){
       this.$router.push({ name: 'product_edit', params: {productId: productId}})
     },
+    statusUpdate(productId){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "This Item will Be Inactive!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F8E04C',
+        cancelButtonColor: '#ea4c32',
+        confirmButtonText: 'Yes, Change it!'
+      }).then((result)=>{
+        if (result.isConfirmed){
+          RestApi.postData(ServiceBaseUrl, `${productStatusUpdateApi}/${productId}`).then(response => {
+            if (response.success === true){
+              this.$store.commit('product/updateProductList', response.data)
+              toast.success('Status Updated')
+            }else {
+              toast.error('Status Could not Updated')
+            }
+          });
+        }
+      })
+    },
 
-    dataEdit(itemId)  {
-      console.log('Edit Item  => ', itemId);
+    deleteProduct(productId)  {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "This Item will Be Inactive!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F8E04C',
+        cancelButtonColor: '#ea4c32',
+        confirmButtonText: 'Yes, Change it!'
+      }).then((result)=>{
+        if (result.isConfirmed){
+          const params = {}
+          RestApi.deleteData(ServiceBaseUrl, `${productDeleteApi}/${productId}`, params).then(response =>{
+            if (response.success === true)
+            {
+              this.$store.commit('product/deleteProduct', productId)
+              toast.success('Product Deleted')
+            }else {
+              toast.error('Could not be Deleted')
+            }
+          })
+        }
+      })
     },
     getCategoryName(categoryId) {
       const category = this.categories.find(item => item.id === parseInt(categoryId))

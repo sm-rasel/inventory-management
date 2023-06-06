@@ -1,5 +1,5 @@
 import axios from 'axios'
-export const ServiceBaseUrl = 'http://127.0.0.1:8000/'
+export const ServiceBaseUrl = 'http://127.0.0.1:8000/api/'
 // Handling server error
 const errorHandler = (error) => {
   if (error.response.status === 401) {

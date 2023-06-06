@@ -19,19 +19,19 @@ class Product extends Model
     public static function newProduct($request)
     {
         self::$product                  = new Product();
-        self::$product->category_id      = $request->category_id;
-        self::$product->product_name          = $request->product_name;
-        self::$product->stock_qty           = $request->stock_qty;
-        self::$product->status        = 1;
+        self::$product->category_id     = $request->category_id;
+        self::$product->product_name    = $request->product_name;
+        self::$product->stock_qty       = $request->stock_qty;
+        self::$product->status          = 1;
         self::$product->save();
         return self::$product;
     }
     public static function updateProduct($request, $id)
     {
         self::$product                  = Product::find($id);
-        self::$product->category_id      = $request->category_id;
-        self::$product->product_name          = $request->product_name;
-        self::$product->stock_qty           = $request->stock_qty;
+        self::$product->category_id     = $request->category_id;
+        self::$product->product_name    = $request->product_name;
+        self::$product->stock_qty       = $request->stock_qty;
         self::$product->save();
         return self::$product;
     }

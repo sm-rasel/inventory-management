@@ -52,8 +52,8 @@
           </div>
           <div class="row justify-content-end">
             <div class="col-sm-9">
-              <button type="submit" class="btn btn-outline-success w-md px-5 me-1" @click="newCategory" >Create New Category</button>
-              <router-link :to="{ name: 'category_list' }" class="btn btn-outline-danger w-md px-3 ms-2">Cancel</router-link>
+              <button type="submit" class="btn btn-outline-success w-md px-5 me-1" @click="newCategory" >{{ form_title }} Category</button>
+              <router-link :to="{ name: 'product_list' }" class="btn btn-outline-danger w-md px-3 ms-2">Cancel</router-link>
             </div>
           </div>
         </form>
@@ -73,6 +73,7 @@ export default {
   data() {
     return {
       title: 'Add',
+      form_title: 'Create New',
       categories: [],
       productData: {
         product_name: '',
@@ -85,6 +86,7 @@ export default {
     const productId = this.$route.params.productId;
     if (productId) {
       this.title = 'Edit'
+      this.form_title = 'Update Product'
       this.getProduct(productId)
     }
     this.loadCategory()

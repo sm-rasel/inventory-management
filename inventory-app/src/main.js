@@ -14,7 +14,8 @@ library.add(fas)
 import vueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'bootstrap'
-import toaster from '@meforma/vue-toaster';
+import toast from '@meforma/vue-toaster';
+import 'vue3-toastify/dist/index.css'
 
 import { defineRule } from 'vee-validate'
 import AllRules from '@vee-validate/rules';
@@ -27,7 +28,7 @@ Object.keys(AllRules).forEach(rule => {
 import BtTable from "./components/core/table/bt-table.vue";
 
 const app = createApp(App)
-app.use(router,store, vueSweetalert2, toaster)
+app.use(router,store, vueSweetalert2, toast)
 app.config.globalProperties.$store=store
 app.component("fa", FontAwesomeIcon)
 app.component("BtTable", BtTable)

@@ -5,15 +5,15 @@
         <ul class="metismenu list-unstyled" id="side-menu">
           <li>
             <ul class="sub-menu" aria-expanded="true">
-              <div class="float-start">
+              <div class="float-start ">
+                <router-link class="btn btn-sm btn-outline-info" :to="{ name: 'category_list'}" >Add Category</router-link>
+              </div>
+              <div class="float-start ms-3">
                 <router-link class="btn btn-sm btn-outline-success" :to="{ name: 'product_list'}" >Add Product</router-link>
               </div>
               <div class="float-start ms-3">
-                <router-link class="btn btn-sm btn-outline-info" :to="{ name: 'category_list'}" >Add Category</router-link>
+                <router-link class="btn btn-sm btn-outline-primary" :to="{ name: 'inventory_list'}">See Inventory</router-link>
               </div>
-<!--              <div class="float-start ms-3">-->
-<!--                <router-link class="btn btn-sm btn-outline-primary" :to="{ name: 'inventory_list'}">See Inventory</router-link>-->
-<!--              </div>-->
             </ul>
           </li>
         </ul>
@@ -69,6 +69,7 @@ import { mapState } from 'vuex'
 import Store from '@/store'
 import Swal from 'sweetalert2';
 import {toast} from "vue3-toastify";
+import toaster from "@meforma/vue-toaster";
 export default {
   components: { },
   computed: mapState({
@@ -108,11 +109,9 @@ export default {
           RestApi.postData(ServiceBaseUrl, `${categoryStatusUpdateApi}/${categoryId}`).then(response => {
             if (response.success === true) {
               this.$store.commit('category/updateCategoryList', response.data)
-              Swal.fire(
-                  'Updated!',
-                  'Your file has been deleted.',
-                  'success'
-              );
+              toast.success('Status updated', )
+            }else {
+              toast.error('Could Updated')
             }
           });
         }
@@ -134,11 +133,12 @@ export default {
             if (response.success === true)
             {
               this.$store.commit('category/deleteCategory', deleteId)
-              Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-              );
+              toast.success(
+                  'Deleted',
+                  'Your file has been deleted.'
+              )
+            }else {
+              toast.error('Could Deleted')
             }
           })
         }
